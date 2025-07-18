@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MindMate – Stress Insight</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <h1>🔍 Stress Insight</h1>
+    <form id="predictForm">
+      <label>Mood Score (1–5)</label>
+      <input type="number" step="0.1" min="1" max="5" name="mood" required />
+      <label>Sentiment (-1 to 1)</label>
+      <input type="number" step="0.1" min="-1" max="1" name="sentiment" required />
+      <label>App Usage</label>
+      <input type="number" min="0" max="10" name="usage" required />
+      <button type="submit">Get Prediction</button>
+    </form>
+    <p id="result">🧘 Result: -</p>
+    <a href="relax.html">Need to Unwind?</a>
+
+  </div>
+  <script src="script.js"></script>
+
+<script>document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("predictForm");
+  const resultEl = document.getElementById("result");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Stop the form from reloading the page
+
+    const mood = parseFloat(form.mood.value);
+    const sentiment = parseFloat(form.sentiment.value);
+    const usage = parseInt(form.usage.value);
+
+    try {
+      const response = await fetch("http://192.168.100.9:5000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mood, sentiment, usage })
+      });
+
+      const data = await response.json();
+      resultEl.innerText = `🧘 Result: ${data.stress_level}`;
+    } catch (error) {
+      resultEl.innerText = "🚨 Something went wrong. Try again!";
+    }
+  });
+});
+</script>
+</body>
+</html>
