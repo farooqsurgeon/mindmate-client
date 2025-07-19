@@ -20,33 +20,29 @@
     <a href="relax.html">Need to Unwind?</a>
 
   </div>
-  <script src="script.js"></script>
+  <script>
+document.getElementById("predict-form").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-<script>document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("predictForm");
-  const resultEl = document.getElementById("result");
+  const mood = parseFloat(document.getElementById("mood").value);
+  const sentiment = parseFloat(document.getElementById("sentiment").value);
+  const usage = parseFloat(document.getElementById("usage").value);
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Stop the form from reloading the page
-
-    const mood = parseFloat(form.mood.value);
-    const sentiment = parseFloat(form.sentiment.value);
-    const usage = parseInt(form.usage.value);
-
-    try {
-      const response = await fetch("http://192.168.100.9:5000/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mood, sentiment, usage })
-      });
-
-      const data = await response.json();
-      resultEl.innerText = `🧘 Result: ${data.stress_level}`;
-    } catch (error) {
-      resultEl.innerText = "🚨 Something went wrong. Try again!";
-    }
+  fetch("https://mindmate-api-1.onrender.com/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ mood, sentiment, usage })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerText = `🧘 Result: ${data.stress_level}`;
+  })
+  .catch(err => {
+    console.error("Error contacting server:", err);
+    document.getElementById("result").innerText = "⚠️ Error contacting server";
   });
 });
 </script>
+
 </body>
 </html>

@@ -16,11 +16,14 @@ document.getElementById("predictForm")?.addEventListener("submit", function (e) 
   const sentiment = parseFloat(this.sentiment.value);
   const usage = parseInt(this.usage.value);
 
-  fetch("http://localhost:5000/predict", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ mood, sentiment, usage })
-  })
+  fetch("https://mindmate-api-1.onrender.com/predict", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ mood, sentiment, usage })
+})
+
   .then(res => res.json())
   .then(data => {
     document.getElementById("result").innerText = "🧘 Result: " + data.stress_level;
