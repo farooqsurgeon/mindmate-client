@@ -89,7 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const response = await fetch("https://mindmate-api-1.onrender.com/predict", {
+        const response = await fetch("https://mindmate-api-7reu.onrender.com/predict", {
+
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ mood, sentiment, usage })
