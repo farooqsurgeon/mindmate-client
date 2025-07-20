@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MindMate – Journal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+  <!-- Inside the <div class="app"> -->
+<h1>✍️New Journal Entry</h1>
+<textarea id="journalText" rows="5" placeholder="What's on your mind today?"></textarea>
+<button onclick="analyzeSentiment()">Analyze Emotion</button>
+<p id="sentimentResult">Sentiment: -</p>
+<button onclick="exportJournal()">Download Journal 📥</button>
+
+<a class="nav-link" href="insight.html">Get Stress Insight 🔍</a>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MindMate – Mood Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+    <h1>MindMate</h1>
+    <h3>🧠 How are you feeling today?</h3>
+    <div class="mood-options">
+      <button onclick="selectMood(1)">😢</button>
+      <button onclick="selectMood(2)">😞</button>
+      <button onclick="selectMood(3)">😐</button>
+      <button onclick="selectMood(4)">🙂</button>
+      <button onclick="selectMood(5)">😄</button>
+    </div>
+    <p id="selectedMood">Mood Score: -</p>
+    <a class="nav-link" href="journal.html">+ Add journal entry ✍️</a>
+    <a href="journal.html">Go to Journal</a>
+  <script src="script.js"></script>
+</body>
+</html>

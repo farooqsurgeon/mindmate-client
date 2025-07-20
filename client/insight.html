@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MindMate – Stress Insight</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+  <!-- Inside the <div class="app"> -->
+<h1>🔍 Stress Insight</h1>
+<form id="predictForm">
+  <label>Mood Score (1–5)</label>
+ <input type="number" name="mood" id="mood" required />
+
+  <label>Sentiment (-1 to 1)</label>
+ <input type="number" name="sentiment" id="sentiment" required />
+
+  <label>App Usage (hrs)</label>
+  <input type="number" name="usage" id="usage" required />
+
+  <button type="submit">Get Prediction</button>
+</form>
+
+<div id="loader" style="display:none;">🔄 Analyzing...</div>
+<p id="result" class="result">🧘 Result: -</p>
+<a class="nav-link" href="relax.html">Need to Unwind?</a>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
