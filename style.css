@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f0f4;
+  background-color: #f0f5f9;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,18 +9,19 @@ body {
 }
 
 .app {
-  background: rgb(255, 255, 255);
+  background: #fff;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  width: 90%;
   text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-h1 {
-  margin-bottom: 20px;
-  color: #00796b;
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
 .mood-options button {
@@ -32,27 +33,20 @@ h1 {
   cursor: pointer;
 }
 
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-input, button {
+textarea, input, button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 button {
-  background-color: #160079;
+  background-color: #00796b;
   color: white;
-  border: none;
   cursor: pointer;
+  border: none;
 }
 
 .nav-link {
@@ -60,4 +54,24 @@ button {
   margin-top: 20px;
   color: #00796b;
   text-decoration: none;
+}
+
+.result {
+  margin-top: 15px;
+  font-size: 1.2em;
+}
+
+.result.low { color: #00796b; }
+.result.moderate { color: #fbc02d; }
+.result.high { color: #c62828; }
+
+@media (max-width: 768px) {
+  .app {
+    width: 95%;
+    padding: 20px;
+  }
+
+  textarea, input, button {
+    font-size: 1em;
+  }
 }
