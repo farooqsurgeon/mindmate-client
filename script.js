@@ -4,7 +4,7 @@ function selectMood(score) {
 }
 
 function analyzeSentiment() {
-  const text = document.getElementById("journalText")?.value.toLowerCase() || "";
+  const text = document.getElementById("journalText")?.value?.toLowerCase() || "";
   let score = 0;
   if (text.includes("happy") || text.includes("grateful")) score += 0.5;
   if (text.includes("sad") || text.includes("stressed")) score -= 0.5;
@@ -38,7 +38,7 @@ function displayJournalHistory() {
 
 function exportJournal() {
   const history = JSON.parse(localStorage.getItem("journalHistory") || "[]");
-  let content = history.map((h, i) =>
+  const content = history.map((h, i) =>
     `${i + 1}) Date: ${h.date}\nSentiment: ${h.sentiment}\n${h.entry}\n`
   ).join("\n---\n");
   const blob = new Blob([content], { type: "text/plain" });
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displayJournalHistory();
   }
 
-  if (form && resultEl && loader) {
+  if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -66,14 +66,29 @@ document.addEventListener("DOMContentLoaded", () => {
       resultEl.className = "result";
       loader.style.display = "block";
 
-      const mood = parseFloat(document.getElementById("mood")?.value || 0);
-      const sentiment = parseFloat(document.getElementById("sentiment")?.value || 0);
-      const usage = parseInt(document.getElementById("usage")?.value || 0);
+      const moodInput = document.getElementById("mood");
+      const sentimentInput = document.getElementById("sentiment");
+      const usageInput = document.getElementById("usage");
 
-      console.log("Sending:", { mood, sentiment, usage });
+      if (!moodInput || !sentimentInput || !usageInput) {
+        loader.style.display = "none";
+        resultEl.innerText = "⚠️ One or more inputs missing.";
+        return;
+      }
+
+      const mood = parseFloat(moodInput.value);
+      const sentiment = parseFloat(sentimentInput.value);
+      const usage = parseInt(usageInput.value);
+
+      console.log("Sending to backend:", { mood, sentiment, usage });
+
+      if (isNaN(mood) || isNaN(sentiment) || isNaN(usage)) {
+        loader.style.display = "none";
+        resultEl.innerText = "⚠️ Please enter valid numbers.";
+        return;
+      }
 
       try {
-        console.log({ mood, sentiment, usage });
         const response = await fetch("https://mindmate-api-1.onrender.com/predict", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (error) {
         loader.style.display = "none";
         console.error("Fetch error:", error);
-        resultEl.innerText = "🚨 Something went wrong. Try again!";
+        resultEl.innerText = "🚨 Error contacting server.";
         resultEl.className = "result error";
       }
     });
